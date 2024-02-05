@@ -9,6 +9,7 @@ import com.company.shapes.ui.OutputInterface;
  * Android interactions.  Designing the assignments this way allows
  * you to first learn key 'Java' features without having to beforehand
  * learn the complexities of Android.
+ * Yes.
  *
  */
 public class Logic 
