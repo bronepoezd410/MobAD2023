@@ -12,6 +12,11 @@ android {
         versionName "1.0"
         multiDexEnabled true
     }
+
+
+    // Specify the module
+    module = "app"
+    
     buildTypes {
         release {
             minifyEnabled false

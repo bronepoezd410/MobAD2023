@@ -44,9 +44,77 @@ public class Logic
      * on-screen button labeled 'Process...' is pressed.
      */
     public void process(int size) {
+        int hCount = 0;
+        int sizeCount = size + 1;
+        int totalHeight = size * 2 + 1;
+        int totalWidth = size * 2 + 2;
 
-        // TODO -- add your code here
-
+        for (int h = 0; h < totalHeight; h++) {
+            for (int w = 0; w < totalWidth; w++) {
+                if ((h == 0 || h == totalHeight - 1) && (w == 0 || w == totalWidth - 1)) { // Углы рамки
+                    mOut.print('+');
+                } else if ((h != 0 && h != totalHeight - 1) && (w == 0 || w == totalWidth - 1)) { // Вертикальные стороны рамки
+                    mOut.print('|');
+                } else if ((h == 0 || h == totalHeight - 1) && (w != 0 && w != totalWidth - 1)) { // Горизонтальные стороны рамки
+                    mOut.print('-');
+                } else if ((h != 0 && h != totalHeight - 1) && (w != 0 && w != totalWidth - 1)) { // Содержимое рамки
+                    int mid = (int) Math.ceil(totalWidth / 2.0);
+                    if (h == mid - 1) { // Середина ромба
+                        if (w == 1) {
+                            mOut.print('<');
+                        } else if (w == totalWidth - 2) {
+                            mOut.print('>');
+                        } else {
+                            mOut.print((w % 2 == 0) ? '-' : '=');
+                        }
+                    } else if (h < mid - 1) { // Ромб выше середины
+                        if (w <= size) { // Ромб до центра
+                            if (w == sizeCount) { // Грани
+                                mOut.print('/');
+                            } else if (w > sizeCount) {
+                                mOut.print((h % 2 == 0) ? '-' : '=');
+                            } else {
+                                mOut.print(' ');
+                            }
+                        } else if (w > size) { // Ромб после центра
+                            if (w == size + hCount) { // Грани
+                                mOut.print('\\');
+                            } else if (w < size + hCount) {
+                                mOut.print((h % 2 == 0) ? '-' : '=');
+                            } else {
+                                mOut.print(' ');
+                            }
+                        }
+                    } else if (h > mid - 1) { // Ромб ниже середины
+                        if (w <= size) { // Ромб до центра
+                            if (w == sizeCount) { // Грани
+                                mOut.print('\\');
+                            } else if (w > sizeCount) {
+                                mOut.print((h % 2 == 0) ? '-' : '=');
+                            } else {
+                                mOut.print(' ');
+                            }
+                        } else if (w > size) { // Ромб после центра
+                            if (w == size + hCount) { // Грани
+                                mOut.print('/');
+                            } else if (w < size + hCount) {
+                                mOut.print((h % 2 == 0) ? '-' : '=');
+                            } else {
+                                mOut.print(' ');
+                            }
+                        }
+                    }
+                }
+            }
+            mOut.print('\n');
+            if (h < size) { // До середины, грань движется к краю, а после к центру
+                hCount++; // Для правой половины ромба
+                sizeCount--;
+            } else {
+                hCount--;
+                sizeCount++;
+            }
+        }
     }
 
 }
