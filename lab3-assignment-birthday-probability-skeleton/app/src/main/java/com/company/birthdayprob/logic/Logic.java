@@ -76,7 +76,36 @@ public class Logic
      */
     public double calculate(int size, int count) {
         // TODO -- add your code here
+        double probability = simulateBirthdayProbability(size, count);
 
+        return probability;
     }
+
+
     // TODO - add your code here
+
+    public static double simulateBirthdayProbability(int groupSize, int simulationCount) {
+        int matchingBirthdayCount = 0;
+        for (int i = 0; i < simulationCount; i++) {
+            long seed = i;
+            if (simulateSingleBirthday(groupSize, seed)) {
+                matchingBirthdayCount++;
+            }
+        }
+        return (double) matchingBirthdayCount / simulationCount * 100.0;
+    }
+
+    public static boolean simulateSingleBirthday(int groupSize, long seed) {
+        Random random = new Random(seed);
+        boolean[] birthdays = new boolean[365];
+
+        for (int i = 0; i < groupSize; i++) {
+            int birthday = random.nextInt(365);
+            if (birthdays[birthday]) {
+                return true;
+            }
+            birthdays[birthday] = true;
+        }
+        return false;
+    }
 }
